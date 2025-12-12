@@ -1,0 +1,20 @@
+# Ignore Virtual Environment
+.venv/
+venv/
+env/
+
+# Ignore Python compiled files
+__pycache__/
+*.pyc
+
+# Ignore Database (Development)
+instance/
+*.db
+*.sqlite3
+
+# Ignore OS generated files
+.DS_Store
+Thumbs.db
+
+# Ignore VS Code settings
+.vscode/
