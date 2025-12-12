@@ -1,0 +1,15 @@
+# pip install
+#backend
+flask
+flask-sqlalchemy
+flask-login
+# encryps passwords
+flask-bcrypt
+# caching
+Flask-Caching
+# database connectors
+mysql-connector-python
+# web scraping
+requests
+beautifulsoup4
+lxml

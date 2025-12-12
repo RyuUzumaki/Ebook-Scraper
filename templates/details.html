@@ -1,0 +1,61 @@
+{% extends "base.html" %} {% block title %}{{ book.title }} - Details{% endblock
+%} {% block content %}
+<div class="container py-5">
+  <a
+    href="{{ url_for('home', page=page, query=query) }}"
+    class="text-decoration-none mb-4 back-link"
+  >
+    &larr; Back
+  </a>
+
+  <div class="row">
+    <div class="col-lg-4 mb-4">
+      <div class="book-cover-container">
+        {% if book.image_url %}
+        <img
+          src="{{ book.image_url }}"
+          class="book-cover-img"
+          alt="{{ book.title }}"
+        />
+        {% else %}
+        <div
+          class="bg-secondary text-white p-5 rounded d-flex align-items-center justify-content-center"
+          style="height: 300px"
+        >
+          No Cover Available
+        </div>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="col-lg-8">
+      <div class="book-meta h-100">
+        <h1 class="display-5 fw-bold">{{ book.title }}</h1>
+        <div class="book-author">by <strong>{{ book.author }}</strong></div>
+
+        <div class="mt-4">
+          <div class="book-description">{{ book.description | safe }}</div>
+        </div>
+
+        <div class="mt-5">
+          <a
+            href="{{ url_for('download_book', url=book.original_url) }}"
+            class="btn btn-download shadow-sm"
+            target="_blank"
+          >
+            <i class="bi bi-download"></i> Download .epub
+          </a>
+          <a
+            href="{{ book.original_url }}"
+            target="_blank"
+            class="btn btn-outline-secondary ms-2"
+            style="border-radius: 50px; padding: 12px 25px"
+          >
+            View Source
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,317 @@
+/* 1. Import Modern Google Fonts (Inter & Outfit) */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@500;700&display=swap');
+
+/* --- COLOR VARIABLES (THEME ENGINE) --- */
+:root {
+    /* --- LIGHT MODE (DEFAULT) --- */
+    --primary-color: #4f46e5;    /* Vibrant Indigo */
+    --primary-hover: #4338ca;    /* Darker Indigo */
+    --secondary-color: #64748b;  /* Cool Gray */
+    --accent-color: #10b981;     /* Emerald Green */
+    --danger-color: #ef4444;     /* Soft Red */
+    
+    --bg-color: #f8fafc;         /* Very light slate background */
+    --card-bg: #ffffff;          /* White Card */
+    --card-border: #e2e8f0;      /* Light Gray Border */
+    
+    --text-main: #1e293b;        /* Dark Slate */
+    --text-muted: #64748b;       /* Medium Slate */
+    
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    
+    --radius-md: 0.75rem;        /* 12px */
+    --radius-lg: 1rem;           /* 16px */
+}
+
+/* --- DARK MODE OVERRIDES --- */
+[data-bs-theme="dark"] {
+    --primary-color: #6366f1;    /* Lighter Indigo for dark mode readability */
+    --primary-hover: #818cf8;
+    
+    --bg-color: #212529;         /* Dark Bootstrap Background */
+    --card-bg: #2b3035;          /* Dark Grey Card */
+    --card-border: #495057;      /* Darker Border */
+    
+    --text-main: #f8f9fa;        /* Near White */
+    --text-muted: #adb5bd;       /* Light Gray */
+    
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+}
+
+/* --- GLOBAL STYLES --- */
+body {
+    background-color: var(--bg-color);
+    font-family: 'Inter', sans-serif;
+    color: var(--text-main);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+h1, h2, h3, h4, h5 {
+    font-family: 'Outfit', sans-serif;
+    color: var(--text-main);
+    font-weight: 700;
+    letter-spacing: -0.025em;
+}
+
+a {
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+/* --- COMPONENT: BOOK CARDS --- */
+.book-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border); /* Uses variable for theme switching */
+    border-radius: var(--radius-md);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+}
+
+.book-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg) !important;
+    border-color: var(--primary-color);
+}
+
+.card-title {
+    font-size: 1.1rem;
+    line-height: 1.4;
+    margin-bottom: 0.5rem;
+    color: var(--text-main);
+}
+
+.card-text small {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+/* --- DARK MODE TOGGLE ICON --- */
+#darkModeToggle {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+#darkModeToggle:hover {
+    background-color: rgba(255, 255, 255, 0.2); /* White glow effect */
+    transform: scale(1.1); /* Slight zoom */
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.3); /* Outer glow */
+}
+
+/* Specific yellow glow for the Sun icon when in Dark Mode */
+[data-bs-theme="dark"] #darkModeToggle:hover {
+    background-color: rgba(255, 193, 7, 0.2); /* Yellowish glow */
+    box-shadow: 0 0 15px rgba(255, 193, 7, 0.4);
+}
+
+/* --- BUTTONS --- */
+.btn {
+    border-radius: 0.5rem;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    transition: all 0.2s;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    border: none;
+    box-shadow: var(--shadow-sm);
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-hover);
+    transform: translateY(-1px);
+}
+
+.btn-success {
+    background-color: var(--accent-color);
+    border: none;
+    color: white;
+}
+
+.btn-success:hover {
+    background-color: #059669; /* Darker Emerald */
+    color: white;
+}
+
+/* --- DETAILS PAGE --- */
+.book-cover-container {
+    padding: 2rem;
+    background: var(--card-bg);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--card-border);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.book-cover-img {
+    border-radius: 6px;
+    box-shadow: 5px 10px 30px rgba(0,0,0,0.15);
+    max-height: 400px;
+    object-fit: cover;
+}
+
+.book-meta {
+    background: var(--card-bg);
+    padding: 2.5rem;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--card-border);
+    height: 100%;
+}
+
+.display-5 {
+    font-weight: 800;
+    color: var(--text-main);
+}
+
+.book-author {
+    font-size: 1.1rem;
+    color: var(--primary-color);
+    font-weight: 600;
+    background: rgba(79, 70, 229, 0.1); /* Transparent Indigo */
+    padding: 0.25rem 0.75rem;
+    border-radius: 2rem;
+    display: inline-block;
+    margin-bottom: 1.5rem;
+}
+
+.book-description {
+    font-size: 1.05rem;
+    color: var(--text-main);
+    line-height: 1.8;
+}
+
+/* Download Button */
+.btn-download {
+    background-color: var(--text-main);
+    color: var(--bg-color); /* Invert colors */
+    padding: 14px 30px;
+    border-radius: 50px;
+    font-weight: 600;
+    box-shadow: var(--shadow-md);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-download:hover {
+    background-color: var(--primary-color);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+/* Back Link */
+.back-link {
+    color: var(--text-muted);
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 2rem;
+    transition: all 0.2s;
+}
+
+.back-link:hover {
+    background-color: var(--card-bg);
+    color: var(--primary-color);
+    box-shadow: var(--shadow-sm);
+    transform: translateX(-5px);
+}
+
+/* --- SIDEBAR FILTERS --- */
+.filter-sidebar {
+    background: transparent;
+    box-shadow: none;
+    border: none;
+}
+
+.filter-header {
+    background: transparent;
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0 0 1rem 1rem;
+    border: none;
+}
+
+.filter-item {
+    border: none;
+    background: transparent;
+    color: var(--text-muted);
+    font-weight: 500;
+    padding: 0.75rem 1rem;
+    margin-bottom: 0.25rem;
+    border-radius: 0.5rem;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+}
+
+.filter-item span {
+    position: relative;
+    z-index: 2;
+}
+
+.filter-item:hover {
+    background-color: var(--card-bg);
+    color: var(--primary-color);
+    box-shadow: var(--shadow-sm);
+    padding-left: 1.25rem;
+}
+
+.filter-item.active {
+    background-color: var(--primary-color);
+    color: white;
+    box-shadow: var(--shadow-md);
+}
+
+.filter-item.active:hover {
+    background-color: var(--primary-hover);
+    color: white;
+    padding-left: 1rem;
+}
+
+/* --- FORM ELEMENTS --- */
+.form-control, .form-select {
+    border-radius: 0.5rem;
+    border: 1px solid var(--card-border);
+    padding: 0.6rem 1rem;
+    background-color: var(--card-bg);
+    color: var(--text-main);
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
+    background-color: var(--card-bg);
+    color: var(--text-main);
+}
+
+.form-control::placeholder {
+    color: var(--text-muted);
+}
+
+/* --- ALERTS --- */
+.alert {
+    border-radius: var(--radius-md);
+    border: none;
+    box-shadow: var(--shadow-sm);
+}

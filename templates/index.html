@@ -1,0 +1,337 @@
+{% extends "base.html" %} {% block title %} {% if current_category %} {{
+current_category|title }} - Page {{ current_page }} {% else %} Library - Page {{
+current_page }} {% endif %} {% endblock %} {% block content %}
+<div class="row">
+  <div class="col-md-3 mb-4 d-none d-md-block">
+    <div class="filter-sidebar sticky-top" style="top: 20px; z-index: 1">
+      <div class="filter-header">Browse Genres</div>
+
+      <a
+        href="{{ url_for('home', query=search_query) }}"
+        class="filter-item {{ 'active' if not current_category else '' }}"
+      >
+        <span>🏠 All Books</span>
+      </a>
+
+      <a
+        href="{{ url_for('category', category_name='adventure', query=search_query) }}"
+        class="filter-item {{ 'active' if current_category == 'adventure' else '' }}"
+      >
+        <span>Adventure</span>
+      </a>
+
+      <a
+        href="{{ url_for('category', category_name='autobiography', query=search_query) }}"
+        class="filter-item {{ 'active' if current_category == 'autobiography' else '' }}"
+      >
+        <span>Autobiography</span>
+      </a>
+
+      <a
+        href="{{ url_for('category', category_name='childrens', query=search_query) }}"
+        class="filter-item {{ 'active' if current_category == 'childrens' else '' }}"
+      >
+        <span>Children's</span>
+      </a>
+
+      <a
+        href="{{ url_for('category', category_name='fantasy', query=search_query) }}"
+        class="filter-item {{ 'active' if current_category == 'fantasy' else '' }}"
+      >
+        <span>Fantasy</span>
+      </a>
+
+      <a
+        href="{{ url_for('category', category_name='fiction', query=search_query) }}"
+        class="filter-item {{ 'active' if current_category == 'fiction' else '' }}"
+      >
+        <span>Fiction</span>
+      </a>
+
+      <a
+        href="{{ url_for('category', category_name='horror', query=search_query) }}"
+        class="filter-item {{ 'active' if current_category == 'horror' else '' }}"
+      >
+        <span>Horror</span>
+      </a>
+
+      <a
+        href="{{ url_for('category', category_name='comedy', query=search_query) }}"
+        class="filter-item {{ 'active' if current_category == 'comedy' else '' }}"
+      >
+        <span>Comedy</span>
+      </a>
+
+      <a
+        href="{{ url_for('category', category_name='mystery', query=search_query) }}"
+        class="filter-item {{ 'active' if current_category == 'mystery' else '' }}"
+      >
+        <span>Mystery</span>
+      </a>
+
+      <a
+        href="{{ url_for('category', category_name='science-fiction', query=search_query) }}"
+        class="filter-item {{ 'active' if current_category == 'science-fiction' else '' }}"
+      >
+        <span>Science Fiction</span>
+      </a>
+
+      <a
+        href="{{ url_for('category', category_name='shorts', query=search_query) }}"
+        class="filter-item {{ 'active' if current_category == 'shorts' else '' }}"
+      >
+        <span>Short Stories</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="col-md-9">
+    <div class="d-block d-md-none mb-4">
+      <div class="dropdown">
+        <button
+          class="btn btn-primary w-100 dropdown-toggle"
+          type="button"
+          id="categoryDropdown"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          {% if current_category %} Category: {{ current_category|title }} {%
+          else %} Browse Genres {% endif %}
+        </button>
+        <ul
+          class="dropdown-menu w-100 shadow-lg border-0 rounded-3"
+          aria-labelledby="categoryDropdown"
+        >
+          <li>
+            <a
+              class="dropdown-item"
+              href="{{ url_for('home', query=search_query) }}"
+              >🏠 All Books</a
+            >
+          </li>
+          <li>
+            <a
+              class="dropdown-item"
+              href="{{ url_for('category', category_name='adventure', query=search_query) }}"
+              >Adventure</a
+            >
+          </li>
+          <li>
+            <a
+              class="dropdown-item"
+              href="{{ url_for('category', category_name='autobiography', query=search_query) }}"
+              >Autobiography</a
+            >
+          </li>
+          <li>
+            <a
+              class="dropdown-item"
+              href="{{ url_for('category', category_name='childrens', query=search_query) }}"
+              >Children's</a
+            >
+          </li>
+          <li>
+            <a
+              class="dropdown-item"
+              href="{{ url_for('category', category_name='fantasy', query=search_query) }}"
+              >Fantasy</a
+            >
+          </li>
+          <li>
+            <a
+              class="dropdown-item"
+              href="{{ url_for('category', category_name='fiction', query=search_query) }}"
+              >Fiction</a
+            >
+          </li>
+          <li>
+            <a
+              class="dropdown-item"
+              href="{{ url_for('category', category_name='horror', query=search_query) }}"
+              >Horror</a
+            >
+          </li>
+          <li>
+            <a
+              class="dropdown-item"
+              href="{{ url_for('category', category_name='comedy', query=search_query) }}"
+              >Comedy</a
+            >
+          </li>
+          <li>
+            <a
+              class="dropdown-item"
+              href="{{ url_for('category', category_name='mystery', query=search_query) }}"
+              >Mystery</a
+            >
+          </li>
+          <li>
+            <a
+              class="dropdown-item"
+              href="{{ url_for('category', category_name='science-fiction', query=search_query) }}"
+              >Science Fiction</a
+            >
+          </li>
+          <li>
+            <a
+              class="dropdown-item"
+              href="{{ url_for('category', category_name='shorts', query=search_query) }}"
+              >Short Stories</a
+            >
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="row mb-4">
+      <div class="col-md-12">
+        <form action="{{ url_for('home') }}" method="GET" class="d-flex">
+          {% if current_category %}
+          <input type="hidden" name="category" value="{{ current_category }}" />
+          {% endif %}
+
+          <input
+            type="text"
+            name="query"
+            class="form-control me-2 shadow-sm"
+            placeholder="Search title or author..."
+            value="{{ search_query if search_query else '' }}"
+          />
+
+          <button type="submit" class="btn btn-primary">Search</button>
+
+          {% if search_query %} {% if current_category %}
+          <a
+            href="{{ url_for('category', category_name=current_category) }}"
+            class="btn btn-light ms-2 text-muted border"
+            >Clear</a
+          >
+          {% else %}
+          <a
+            href="{{ url_for('home') }}"
+            class="btn btn-light ms-2 text-muted border"
+            >Clear</a
+          >
+          {% endif %} {% endif %}
+        </form>
+      </div>
+    </div>
+
+    <div class="row">
+      {% for book in books %}
+      <div class="col-md-4 mb-4">
+        <div class="book-card h-100 d-flex flex-column p-3">
+          <div class="card-body p-0 d-flex flex-column flex-grow-1">
+            <h5 class="card-title fw-bold mb-2">{{ book.title }}</h5>
+            <p class="card-text mb-3">
+              <small>by {{ book.summary }}</small>
+            </p>
+
+            <div
+              class="mt-auto d-flex justify-content-between align-items-center"
+            >
+              <div class="btn-group">
+                <a
+                  href="{{ url_for('show_details', url=book.link, page=current_page, query=search_query) }}"
+                  class="btn btn-sm btn-outline-primary"
+                >
+                  View
+                </a>
+                <a
+                  href="{{ url_for('download_book', url=book.link) }}"
+                  class="btn btn-sm btn-success"
+                  target="_blank"
+                >
+                  Download
+                </a>
+              </div>
+
+              {% if current_user.is_authenticated %} {% if book.link in fav_urls
+              %}
+              <a
+                href="{{ url_for('remove_favorite', url=book.link) }}"
+                class="btn btn-sm btn-danger border-0 rounded-circle"
+                style="
+                  width: 32px;
+                  height: 32px;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                "
+                title="Remove from Favorites"
+              >
+                ❤️
+              </a>
+              {% else %}
+              <a
+                href="{{ url_for('add_favorite', title=book.title, url=book.link) }}"
+                class="btn btn-sm btn-outline-danger border-0 rounded-circle"
+                style="
+                  width: 32px;
+                  height: 32px;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                "
+                title="Add to Favorites"
+              >
+                🤍
+              </a>
+              {% endif %} {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %} {% if books|length == 0 %}
+      <div class="col-12 text-center py-5">
+        <h3 class="text-muted fw-bold">No books found.</h3>
+        <p class="text-muted mb-4">Try adjusting your search terms.</p>
+        <a href="{{ url_for('home') }}" class="btn btn-primary px-4 py-2"
+          >View All Books</a
+        >
+      </div>
+      {% endif %}
+    </div>
+
+    <div class="d-flex justify-content-between my-4 pt-3 border-top">
+      <div>
+        {% if current_page > 1 %} {% if current_category %}
+        <a
+          href="{{ url_for('category', category_name=current_category, page=current_page-1, query=search_query) }}"
+          class="btn btn-outline-primary"
+          >&larr; Previous</a
+        >
+        {% else %}
+        <a
+          href="{{ url_for('home', page=current_page-1, query=search_query) }}"
+          class="btn btn-outline-primary"
+          >&larr; Previous</a
+        >
+        {% endif %} {% else %}
+        <button class="btn btn-outline-secondary" disabled>Previous</button>
+        {% endif %}
+      </div>
+
+      <div>
+        {% if has_next %} {% if current_category %}
+        <a
+          href="{{ url_for('category', category_name=current_category, page=current_page+1, query=search_query) }}"
+          class="btn btn-primary shadow-sm"
+          >Next &rarr;</a
+        >
+        {% else %}
+        <a
+          href="{{ url_for('home', page=current_page+1, query=search_query) }}"
+          class="btn btn-primary shadow-sm"
+          >Next &rarr;</a
+        >
+        {% endif %} {% else %}
+        <button class="btn btn-outline-secondary" disabled>
+          End of Results
+        </button>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
